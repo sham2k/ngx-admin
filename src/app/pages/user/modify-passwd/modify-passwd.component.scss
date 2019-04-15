@@ -1,0 +1,16 @@
+@import '../../../@theme/styles/themes';
+
+:host {
+  button {
+    margin-top: 4rem;
+  }
+
+  nb-card {
+    height: 30rem;
+    width: 50rem;
+  }
+
+  nb-card-body {
+    margin-right: 1rem;
+  }
+}

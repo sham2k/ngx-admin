@@ -1,0 +1,111 @@
+<ngx-auth-block>
+    <div class="row">
+        <div class="col-md-3">
+            <nb-card accent="info" style="height:35rem;width:30rem;">
+                <nb-card-header style="height:4rem">
+                    <h2 class="title">新用户注册</h2>
+                </nb-card-header>
+                <nb-card-body>
+                    <form (ngSubmit)="register()" #form="ngForm" autocomplete="nope">
+                            <div class="alert alert-success" role="alert" *ngIf="messages && messages != '' > 0 && !submitted">
+                                <div>{{messages}}</div>
+                            </div>
+
+                        <div class="form-group row">
+                            <label for="input-usercode" class="col-md-3 col-form-label text-right">用户号：</label>
+                            <div class="input-group col-md-8">
+                                <input name="usercode" id="input-usercode" class="form-control" [(ngModel)]="userCode" placeholder="用户号"
+                                    #usercodeH="ngModel" [class.form-control-danger]="usercodeH.invalid && usercodeH.touched"
+                                    required="true" minlength="3" maxlength="16" pattern="[0-9A-Za-z]{3,16}">
+                            </div>
+                            <div class="col-md-8 offset-md-3">
+                                <small class="form-text error" *ngIf="usercodeH.invalid && usercodeH.touched && usercodeH.errors?.required">
+                                    必须输入用户号！
+                                </small>
+                                <small class="form-text error" *ngIf="usercodeH.invalid && usercodeH.touched && usercodeH.errors?.pattern">
+                                    只能包含数字和字母，且长度应在3-16字符！
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="input-username" class="col-md-3 col-form-label text-right">姓名：</label>
+                            <div class="input-group col-md-8">
+                                <input name="username" id="input-username" class="form-control" placeholder="姓名"
+                                    [(ngModel)]="userName" #usernameH="ngModel" minlength="2" maxlength="60" required="true">
+                            </div>
+                            <div class="col-md-8 offset-md-3">
+                                <small class="form-text error" *ngIf="usernameH.invalid && usernameH.touched && usernameH.errors?.required">
+                                    姓名是必须输入的项！
+                                </small>
+                                <small class="form-text error" *ngIf="usernameH.invalid && usernameH.touched && (usernameH.errors?.minlength || usernameH.errors?.maxlength)">
+                                    姓名长度应是2-60个字符！
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="input-passwd1" class="col-md-3 col-form-label text-right">密码：</label>
+                            <div class="input-group col-md-8">
+                                <input type="password" name="passwd1" id="input-passwd1" class="form-control" placeholder="登录密码"
+                                    [(ngModel)]="passwd1" #passwd1H="ngModel" minlength="6" maxlength="20" required="true">
+                            </div>
+                            <div class="col-md-8 offset-md-3">
+                                <small class="form-text error" *ngIf="passwd1H.invalid && passwd1H.touched && passwd1H.errors?.required">
+                                    登录密码是必须输入的项！
+                                </small>
+                                <small class="form-text error" *ngIf="passwd1H.invalid && passwd1H.touched && (passwd1H.errors?.minlength || passwd1H.errors?.maxlength)">
+                                    登录密码长度应是6-20个字符！
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="input-passwd2" class="col-md-3 col-form-label text-right">验证：</label>
+                            <div class="input-group col-md-8">
+                                <input type="password" name="passwd2" id="input-passwd2" class="form-control" placeholder="验证登录密码"
+                                    [(ngModel)]="passwd2" #passwd2H="ngModel" minlength="6" maxlength="20" required="true"
+                                    [pattern]="passwd1">
+                            </div>
+                            <div class="col-md-8 offset-md-3">
+                                <small class="form-text error" *ngIf="passwd2H.invalid && passwd2H.touched && passwd2H.errors?.required">
+                                    登录密码是必须输入的项！
+                                </small>
+                                <small class="form-text error" *ngIf="passwd2H.invalid && passwd2H.touched && (passwd2H.errors?.minlength || passwd2H.errors?.maxlength)">
+                                    登录密码长度应是6-20个字符！
+                                </small>
+                                <small class="form-text error" *ngIf="passwd2H.invalid && passwd2H.errors?.pattern">
+                                    两次输入的登录密码不一致！
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="input-mobile" class="col-md-3 col-form-label text-right">手机：</label>
+                            <div class="input-group col-md-8">
+                                <input type="number" name="mobile" id="input-mobile" class="form-control" [(ngModel)]="mobile"
+                                    #mobileH="ngModel" [class.form-control-danger]="mobileH.invalid && mobileH.touched"
+                                    required="true" pattern="^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$">
+                            </div>
+                            <div class="col-md-8 offset-md-3">
+                                <small class="form-text error" *ngIf="mobileH.invalid && mobileH.touched && mobileH.errors?.required">
+                                    手机号是必须输入的项！
+                                </small>
+                                <small class="form-text error" *ngIf="mobileH.invalid && mobileH.touched && mobileH.errors?.pattern">
+                                    请输入正确的手机号！
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 offset-md-3">
+                            <button [disabled]="submitted || !form.valid" class="btn btn-block btn-hero-success"
+                                [class.btn-pulse]="submitted">
+                                注册
+                            </button>
+                        </div>
+                    </form>
+                </nb-card-body>
+            </nb-card>
+        </div>
+    </div>
+</ngx-auth-block>

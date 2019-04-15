@@ -1,0 +1,27 @@
+<div class="modal-header" style="background:#D3D3D3;">
+    <span>请输入目录名！</span>
+    <span>
+        <i class="ion ion-close-round" (click)="dismissModal()"></i>
+    </span>
+</div>
+
+<div class="modal-body">
+    <div class="form-group">
+        <label for="input-pathname" class="sr-only">目录名</label>
+        <div class="input-group">
+            <input name="pathname" id="input-pathname" class="form-control" placeholder="目录名" autofocus [(ngModel)]="pathName"
+                #dirName="ngModel" [class.form-control-danger]="dirName.invalid && dirName.touched" required="true"
+                pattern="^[a-zA-Z0-9_.-]+([/]{1}[a-zA-Z0-9_.-]+)*$" minlength="3" maxlength="64">
+        </div>
+        <small class="form-text error" *ngIf="dirName.invalid && dirName.touched && dirName.errors?.required">
+            必须目录名!
+        </small>
+        <small class="form-text error" *ngIf="dirName.invalid && dirName.errors?.pattern">
+            目录名无效！
+        </small>
+    </div>
+    <div class="offset-md-4">
+        <button class="btn btn-md btn-primary" (click)="closeModal()">确定</button>
+        <button class="btn btn-md btn-primary" (click)="dismissModal()">取消</button>    
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="modal-header" style="background:#D3D3D3;">
+  <span>请输入用户名！</span>
+  <span>
+    <i class="ion ion-close-round" (click)="dismissModal()"></i>
+  </span>
+</div>
+
+<div class="modal-body">
+  <div class="form-group">
+    <label for="input-usercode" class="sr-only">用户号</label>
+    <div class="input-group">
+      <input name="usercode" id="input-usercode" class="form-control" [(ngModel)]="userCode" #user="ngModel"
+        [class.form-control-danger]="user.invalid && user.touched" required="true" minlength="3" maxlength="16" pattern="[0-9A-Za-z]{3,16}">
+    </div>
+    <small class="form-text error" *ngIf="user.invalid && user.touched && user.errors?.required">
+      必须用户号!
+    </small>
+    <small class="form-text error" *ngIf="user.invalid && user.errors?.pattern">
+      用户号只能包含数字和字母，且长度应在3-16字符！
+    </small>
+  </div>
+  <div class="offset-md-4">
+    <button class="btn btn-md btn-primary" (click)="closeModal()">确定</button>
+    <button class="btn btn-md btn-primary" (click)="dismissModal()">取消</button>
+  </div>
+</div>
