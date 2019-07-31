@@ -1,7 +1,0 @@
-{
-    "typescript.tsdk": "./node_modules/typescript/lib",
-    "tslint.enable": false,
-    "editor.formatOnSave": true,
-    "editor.fontFamily": "'幼圆'",
-    "editor.fontSize": 16
-}
